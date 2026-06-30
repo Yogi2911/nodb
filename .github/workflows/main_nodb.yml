@@ -23,14 +23,15 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Zip artifact
-        run: zip -r release.zip .
+      - name: Create deployment package
+        run: |
+          zip -r deploy.zip . -x "*.git*" -x "*.github*"
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: python-app
-          path: release.zip
+          path: deploy.zip
 
   deploy:
     runs-on: ubuntu-latest
@@ -43,7 +44,7 @@ jobs:
           name: python-app
 
       - name: Unzip artifact
-        run: unzip release.zip
+        run: unzip deploy.zip
 
       - name: Login to Azure
         uses: azure/login@v2
