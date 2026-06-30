@@ -1,4 +1,4 @@
-name: Build and deploy Python app to Azure Web App - nodb
+name: Build and deploy FastAPI app to Azure Web App - nodb
 
 on:
   push:
@@ -15,7 +15,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -58,6 +59,13 @@ jobs:
           client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_50845B418A5F4A5685DEA5E0EE3AD459 }}
           tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_4D8495CA01034248BABE98BFFE5DE636 }}
           subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_D1221E75B2BD4B38A4E4E05C0DF8789E }}
+
+      - name: Set Azure Startup Command (IMPORTANT)
+        run: |
+          az webapp config set \
+            --name nodb \
+            --resource-group YOUR_RESOURCE_GROUP \
+            --startup-file "uvicorn main:app --host 0.0.0.0 --port 8000"
 
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v3
