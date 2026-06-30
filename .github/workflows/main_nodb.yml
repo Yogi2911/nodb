@@ -59,3 +59,10 @@ jobs:
           app-name: nodb
           slot-name: Production
           package: .
+
+
+          - name: Install dependencies
+  working-directory: ecom_noddb
+  run: |
+    python -m pip install --upgrade pip
+    pip install -r requirements.txt
