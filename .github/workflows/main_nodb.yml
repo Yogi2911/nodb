@@ -19,13 +19,15 @@ jobs:
           python-version: '3.11'
 
       - name: Install dependencies
+        working-directory: ecom_noddb
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
       - name: Create deployment package
         run: |
-          zip -r deploy.zip . -x "*.git*" -x "*.github*"
+          cd ecom_noddb
+          zip -r ../deploy.zip . -x "*.git*" -x "*.github*"
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
@@ -59,10 +61,3 @@ jobs:
           app-name: nodb
           slot-name: Production
           package: .
-
-
-          - name: Install dependencies
-  working-directory: ecom_noddb
-  run: |
-    python -m pip install --upgrade pip
-    pip install -r requirements.txt
