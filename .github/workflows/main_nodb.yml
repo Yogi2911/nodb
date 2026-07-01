@@ -71,5 +71,5 @@ jobs:
         run: |
           az webapp config set \
             --name nodb \
-            --resource-group YOUR_RESOURCE_GROUP \
-            --startup-file "uvicorn ecom_noddb.app:app --host 0.0.0.0 --port 8000"
+            --resource-group fastapi-database \
+            --startup-file "uvicorn main:app --host 0.0.0.0 --port 8000"
