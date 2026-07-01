@@ -1,0 +1,11 @@
+﻿# Python cache and temporary build artifacts
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pyc
+# Virtual environment
+.venv/
+# Temporary package download folders
+tmp_wheel_check/
+tmp_wheel_check2/
